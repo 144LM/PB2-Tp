@@ -20,6 +20,11 @@ public class SupermercadoTest {
 	@Test
 	public void queSePuedaAgregarProductoAlInventario() {
 	    // Implementación del test
+		Supermercado supermercado = new Supermercado();
+		Producto producto = new Producto("Jabon", 23.9);
+		supermercado.agregarProducto(producto);
+
+		assertEquals(1, supermercado.getProductos().size());
 	}
 
 	@Test
