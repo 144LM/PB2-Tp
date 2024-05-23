@@ -5,12 +5,16 @@ import static org.junit.Assert.*;
 import org.junit.Test;
 
 public class SupermercadoTest {
-
-
-	
 	@Test
-	public void queSePuedaCrearCrearCliente() {
-		
+	public void queSePuedaAgregarCliente() {
+		// Implementación del test
+		Supermercado supermercado = new Supermercado();
+
+		Cliente cliente = new Cliente("Juan");
+
+		supermercado.agregarCliente(cliente);
+
+		assertEquals(1, supermercado.getClientes().size());
 	}
 
 	@Test
