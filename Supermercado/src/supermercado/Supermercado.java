@@ -3,7 +3,7 @@ package supermercado;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Supermercado {
+public class Supermercado implements ISupermercado {
 
 	private List<Cliente> clientes;
 	private List<ProductoCantidad>inventario;
@@ -14,18 +14,22 @@ public class Supermercado {
 	}
 	
 
+	@Override
 	public Boolean agregarCliente(Cliente cliente) {
 		return clientes.add(cliente);
 	}
 
+	@Override
 	public List<Cliente> getClientes() {
 		return clientes;
 	}
 	
+	@Override
 	public List<ProductoCantidad> getInventario() {
 		return inventario;
 	}
 
+	@Override
 	public Boolean eliminarClientePorDni(Integer dni) {
 		for (Cliente cliente : clientes) {
 			if (cliente.getDni().equals(dni)) {
@@ -37,6 +41,7 @@ public class Supermercado {
 
 	}
 
+	@Override
 	public Boolean agregarProductoAInventario(Producto producto, Integer cantidad) {
 		
 		ProductoCantidad productoCantidad = new ProductoCantidad(producto,cantidad);
@@ -45,7 +50,8 @@ public class Supermercado {
 	}
 
 
-	public boolean eliminarProductoPorId(Integer idProducto) {
+	@Override
+	public Boolean eliminarProductoPorId(Integer idProducto) {
 		
 		for (ProductoCantidad productoCantidad : inventario) {
 			if (productoCantidad.getProducto().getIdProducto().equals(idProducto)) {
@@ -58,6 +64,7 @@ public class Supermercado {
 	}
 
 
+	@Override
 	public boolean agregarProductoAlCarrito(Integer idProducto, Integer dniCliente) {
 		Cliente cliente = buscarClientePorDni(dniCliente);
 		Producto producto = buscarProductoPorId(idProducto);
@@ -81,6 +88,7 @@ public class Supermercado {
 	}
 
 
+	
 	private Cliente buscarClientePorDni(Integer dniCliente) {
 		for (Cliente cliente : clientes) {
 			if (cliente.getDni().equals(dniCliente)) {
@@ -90,6 +98,7 @@ public class Supermercado {
 		return null;
 	}
 
+	@Override
 	public boolean eliminarProductoDelCarrito(Integer idProducto, Integer dniCliente) {
 		Cliente cliente = buscarClientePorDni(dniCliente);
 		Producto productoAEliminar = buscarProductoPorId(idProducto);
@@ -102,6 +111,7 @@ public class Supermercado {
 		}
 	}
 
+	@Override
 	public void actualizarPrecio(Double nuevoPrecio, int idProducto) {
 		Producto producto= buscarProductoPorId(idProducto);
 		producto.setPrecio(nuevoPrecio);
