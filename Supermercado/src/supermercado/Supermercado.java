@@ -56,4 +56,54 @@ public class Supermercado {
 		return false;
 		
 	}
+
+
+	public boolean agregarProductoAlCarrito(Integer idProducto, Integer dniCliente) {
+		Cliente cliente = buscarClientePorDni(dniCliente);
+		Producto producto = buscarProductoPorId(idProducto);
+
+		if (cliente != null && producto != null) {
+			cliente.agregarProductoAlCarrito(producto);
+			return true;
+		} else {
+			return false;
+		}
+	}
+
+	private Producto buscarProductoPorId(Integer idProducto) {
+		for (ProductoCantidad productoCantidad : inventario) {
+			Producto producto = productoCantidad.getProducto();
+			if (producto.getIdProducto().equals(idProducto)) {
+				return producto;
+			}
+		}
+		return null;
+	}
+
+
+	private Cliente buscarClientePorDni(Integer dniCliente) {
+		for (Cliente cliente : clientes) {
+			if (cliente.getDni().equals(dniCliente)) {
+				return cliente;
+			}
+		}
+		return null;
+	}
+
+	public boolean eliminarProductoDelCarrito(Integer idProducto, Integer dniCliente) {
+		Cliente cliente = buscarClientePorDni(dniCliente);
+		Producto productoAEliminar = buscarProductoPorId(idProducto);
+
+		if (cliente != null && productoAEliminar != null) {
+			cliente.eliminarProductoDelCarrito(productoAEliminar);
+			return true;
+		} else {
+			return false;
+		}
+	}
+
+	public void actualizarPrecio(Double nuevoPrecio, int idProducto) {
+		Producto producto= buscarProductoPorId(idProducto);
+		producto.setPrecio(nuevoPrecio);
+	}
 }

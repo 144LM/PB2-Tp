@@ -1,5 +1,7 @@
 package supermercado;
 
+import java.util.Objects;
+
 public class Producto {
 
 	private Integer idProducto;
@@ -46,5 +48,19 @@ public class Producto {
 	public void setCategoria(Categoria categoria) {
 		this.categoria = categoria;
 	}
+
+	@Override
+	public boolean equals(Object o) {
+		if (this == o) return true;
+		if (o == null || getClass() != o.getClass()) return false;
+		Producto producto = (Producto) o;
+		return idProducto.equals(producto.idProducto);
+	}
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(idProducto);
+	}
+
 
 }
