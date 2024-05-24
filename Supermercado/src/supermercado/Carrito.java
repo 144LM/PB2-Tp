@@ -21,5 +21,14 @@ public class Carrito {
         return productos;
     }
 
+	public Double getTotal() {
+		Double total = 0.0;
+		for (Producto producto : productos) {
+			total+=producto.getPrecio();
+		}
+		
+		return total;
+	}
+
 
 }

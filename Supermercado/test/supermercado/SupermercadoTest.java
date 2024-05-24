@@ -157,7 +157,29 @@ public class SupermercadoTest {
 
 	@Test
 	public void queSePuedaCalcularElTotalDelCarrito() {
+		Supermercado supermercado = new Supermercado();
+		ArrayList<Producto> productos = new ArrayList<>();
+		Carrito carrito = new Carrito(productos);
+		Categoria categoria = new Categoria(1, "Bebida", "descripcion");
+		Producto producto = new Producto(1 ,"Coca-cola", 20.50, categoria);
+		Producto producto2 = new Producto(2 ,"Pepsi", 30.50, categoria);
+		Producto producto3 = new Producto(3 ,"Quilmes", 100.50, categoria);
+		Producto producto4 = new Producto(4,"Manaos",30.0,categoria);
+		Cliente cliente = new Cliente("juan", 12333, carrito);
 		
+		supermercado.agregarCliente(cliente);
+
+		supermercado.agregarProductoAInventario(producto, 2);
+		supermercado.agregarProductoAInventario(producto2, 3);
+		supermercado.agregarProductoAInventario(producto3, 5);
+		supermercado.agregarProductoAInventario(producto4, 5);
+
+		supermercado.agregarProductoAlCarrito(1, 12333);
+		supermercado.agregarProductoAlCarrito(2, 12333);
+		supermercado.agregarProductoAlCarrito(3, 12333);
+		supermercado.agregarProductoAlCarrito(4, 12333);
+		
+		assertEquals((Double)181.5,cliente.getCarrito().getTotal());
 	}
 
 	@Test
