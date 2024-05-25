@@ -18,6 +18,8 @@ public class ProductoCantidad {
 	public void setProducto(Producto producto) {
 		this.producto = producto;
 	}
+	
+	
 
 	public Integer getCantidad() {
 		return cantidad;

@@ -5,10 +5,10 @@ public class Cliente {
 	private Integer dni;
 	private Carrito carrito;
 
-	public Cliente(String nombre, Integer dni, Carrito carrito) {
+	public Cliente(String nombre, Integer dni) {
 		this.nombre = nombre;
 		this.dni = dni;
-		this.carrito = carrito;
+		this.carrito = new Carrito();
 	}
 
 	public String getNombre() {
@@ -27,12 +27,6 @@ public class Cliente {
 		this.dni = dni;
 	}
 
-	public void agregarProductoAlCarrito(Producto producto) {
-		this.carrito.agregarProducto(producto);
-	}
-	public void eliminarProductoDelCarrito(Producto producto) {
-		this.carrito.eliminarProducto(producto);
-	}
 	public Carrito getCarrito() {
 		return carrito;
 	}

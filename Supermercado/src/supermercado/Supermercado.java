@@ -49,7 +49,6 @@ public class Supermercado implements ISupermercado {
 		
 	}
 
-
 	@Override
 	public Boolean eliminarProductoPorId(Integer idProducto) {
 		
@@ -63,31 +62,33 @@ public class Supermercado implements ISupermercado {
 		
 	}
 
-
 	@Override
-	public boolean agregarProductoAlCarrito(Integer idProducto, Integer dniCliente) {
+	public boolean agregarProductoAlCarrito(Integer idProducto, Integer dniCliente, Integer cantidadDelProducto) {
 		Cliente cliente = buscarClientePorDni(dniCliente);
-		Producto producto = buscarProductoPorId(idProducto);
-
+		ProductoCantidad producto = buscarProductoCantidadPorId(idProducto);
+		
+		if(producto.getCantidad() < cantidadDelProducto) {
+			return false;
+		}
+		
 		if (cliente != null && producto != null) {
-			cliente.agregarProductoAlCarrito(producto);
+			ProductoCantidad productoCantidadEnElCarrito = new ProductoCantidad(producto.getProducto(), cantidadDelProducto);
+			cliente.getCarrito().agregarProducto(productoCantidadEnElCarrito);
 			return true;
 		} else {
 			return false;
 		}
 	}
 
-	private Producto buscarProductoPorId(Integer idProducto) {
+	private ProductoCantidad buscarProductoCantidadPorId(Integer idProducto) {
 		for (ProductoCantidad productoCantidad : inventario) {
-			Producto producto = productoCantidad.getProducto();
-			if (producto.getIdProducto().equals(idProducto)) {
-				return producto;
+			
+			if (productoCantidad.getProducto().getIdProducto().equals(idProducto)) {
+				return productoCantidad;
 			}
 		}
 		return null;
 	}
-
-
 	
 	private Cliente buscarClientePorDni(Integer dniCliente) {
 		for (Cliente cliente : clientes) {
@@ -101,10 +102,9 @@ public class Supermercado implements ISupermercado {
 	@Override
 	public boolean eliminarProductoDelCarrito(Integer idProducto, Integer dniCliente) {
 		Cliente cliente = buscarClientePorDni(dniCliente);
-		Producto productoAEliminar = buscarProductoPorId(idProducto);
 
-		if (cliente != null && productoAEliminar != null) {
-			cliente.eliminarProductoDelCarrito(productoAEliminar);
+		if (cliente != null) {
+			cliente.getCarrito().eliminarProducto(idProducto);
 			return true;
 		} else {
 			return false;
@@ -113,7 +113,7 @@ public class Supermercado implements ISupermercado {
 
 	@Override
 	public void actualizarPrecio(Double nuevoPrecio, int idProducto) {
-		Producto producto= buscarProductoPorId(idProducto);
-		producto.setPrecio(nuevoPrecio);
+		ProductoCantidad productoCantidad = buscarProductoCantidadPorId(idProducto);
+		productoCantidad.getProducto().setPrecio(nuevoPrecio);
 	}
 }
