@@ -13,4 +13,5 @@ public interface ISupermercado {
 	boolean agregarProductoAlCarrito(Integer idProducto, Integer dniCliente,Integer cantidadDelProducto);
 	boolean eliminarProductoDelCarrito(Integer idProducto, Integer dniCliente);
 	void actualizarPrecio(Double nuevoPrecio, int idProducto);
+	void seleccionarMetodoDePago(MetodoPago metodoPago, Integer idCompra);
 }

@@ -1,5 +1,6 @@
 package supermercado;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -7,10 +8,12 @@ public class Supermercado implements ISupermercado {
 
 	private List<Cliente> clientes;
 	private List<ProductoCantidad>inventario;
+	private List<Compra> compras;
 
 	public Supermercado() {
 		this.clientes = new ArrayList<>();
 		this.inventario = new ArrayList<>();
+		this.compras = new ArrayList<>();
 	}
 	
 
@@ -115,5 +118,22 @@ public class Supermercado implements ISupermercado {
 	public void actualizarPrecio(Double nuevoPrecio, int idProducto) {
 		ProductoCantidad productoCantidad = buscarProductoCantidadPorId(idProducto);
 		productoCantidad.getProducto().setPrecio(nuevoPrecio);
+	}
+
+	public void seleccionarMetodoDePago(MetodoPago metodoPago, Integer idCompra) {
+		Compra compra = buscarCompraPorId(idCompra);
+		if (compra != null) {
+			compra.setMetodoPago(metodoPago);
+		}
+	}
+
+	public Compra buscarCompraPorId(Integer idCompra) {
+		return compras.get(idCompra-1);
+	}
+
+	public void iniciarCompra(Cliente cliente) {
+		Integer idCompra = compras.size() - 1;
+		Compra nuevaCompra = new Compra(idCompra, cliente, LocalDateTime.now(), MetodoPago.EFECTIVO, EstadoCompra.PENDIENTE);
+		compras.add(nuevaCompra);
 	}
 }

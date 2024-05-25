@@ -4,6 +4,9 @@ import static org.junit.Assert.*;
 
 import org.junit.Test;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+
 
 public class SupermercadoTest {
 	@Test
@@ -175,7 +178,17 @@ public class SupermercadoTest {
 
 	@Test
 	public void queSePuedaSeleccionarFormaDePago() {
-		
+		Supermercado supermercado = new Supermercado();
+		Cliente cliente = new Cliente("juan", 12333);
+		MetodoPago metodoPago = MetodoPago.TARJETA_CREDITO;
+		Integer idCompra = 1;
+
+		supermercado.iniciarCompra(cliente);
+		supermercado.seleccionarMetodoDePago(metodoPago, idCompra);
+
+		Compra compra = supermercado.buscarCompraPorId(idCompra);
+
+		assertEquals(MetodoPago.TARJETA_CREDITO, compra.getMetodoPago());
 	}
 
 	@Test
