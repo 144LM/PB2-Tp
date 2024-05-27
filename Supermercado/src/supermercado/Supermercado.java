@@ -155,6 +155,8 @@ public class Supermercado implements ISupermercado {
 			}
 			productoInventario.setCantidad(productoInventario.getCantidad()-productoCarrito.getCantidad());
 		}
+		Double restoDeSaldo = cliente.getSaldo()-carrito.getTotal();
+		cliente.setSaldo(restoDeSaldo);
 		vaciarCarrito(carrito);
 		return true;
 	}

@@ -279,7 +279,26 @@ public class SupermercadoTest {
 
 	@Test
 	public void queSePuedaActualizarElSaldoDelCLienteDespuesDeLaVenta() {
+		Supermercado supermercado = new Supermercado();
+		Producto producto = new Bebida(1 ,"Coca-cola", 20.50);
+		Producto producto2 = new Bebida(2,"Pepsi", 90.50);
+		Cliente cliente = new Cliente("juan", 12333,500.0);
+		MetodoPago metodoPago = MetodoPago.TARJETA_CREDITO;
+		Integer idCompra = 1;
+
+		supermercado.agregarCliente(cliente);
+		supermercado.agregarProductoAInventario(producto, 2);
+		supermercado.agregarProductoAInventario(producto2, 5);
+
+		supermercado.agregarProductoAlCarrito(1, 12333,1);
+		supermercado.agregarProductoAlCarrito(2, 12333,1);
+
+		supermercado.iniciarCompra(cliente);
+		supermercado.seleccionarMetodoDePago(metodoPago, idCompra);
+
+		supermercado.realizarVenta(cliente.getDni());
 		
+		assertEquals((Double)389.0,cliente.getSaldo());
 	}
 
 	@Test
