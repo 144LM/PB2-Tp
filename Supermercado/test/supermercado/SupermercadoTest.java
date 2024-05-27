@@ -278,7 +278,7 @@ public class SupermercadoTest {
 	}
 
 	@Test
-	public void queSePuedaActualizarBalanceDeLaTiendaDespuesDeLaVenta() {
+	public void queSePuedaActualizarElSaldoDelCLienteDespuesDeLaVenta() {
 		
 	}
 
