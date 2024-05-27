@@ -144,11 +144,6 @@ public class Supermercado implements ISupermercado {
 			return false;
 		}
 		Carrito carrito = cliente.getCarrito();
-		//SI EL CLIENTE NO TIENE PLATA NO SE HACE LA VENTA
-		//if(cliente.getSaldo() < carrito.getTotal()) {
-		//	return false;
-		//}
-		
 		List<ProductoCantidad> productosCarrito = carrito.getProductos();
 		
 		for (ProductoCantidad productoCarrito: productosCarrito){
