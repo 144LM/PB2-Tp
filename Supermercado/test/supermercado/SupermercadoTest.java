@@ -6,6 +6,8 @@ import org.junit.Test;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 
 public class SupermercadoTest {
@@ -46,13 +48,8 @@ public class SupermercadoTest {
 		Integer idProducto = 3421;
 		String nombre = "Fideo";
 		Double precio = 920D;
-		Integer idCategoria = 4343;
-		String nombreCategoria = "Alimentos";
-		String descripcion = "Productos comestibles y consumibles";
 
-		Categoria categoria = new Categoria(idCategoria, nombreCategoria, descripcion);
-
-		Producto producto = new Producto(idProducto, nombre, precio, categoria);
+		Producto producto = new Bebida(idProducto, nombre, precio);
 		Integer cantidad = 5;
 
 		Boolean resultado = supermercado.agregarProductoAInventario(producto, cantidad);
@@ -66,14 +63,9 @@ public class SupermercadoTest {
 
 		Supermercado supermercado = new Supermercado();
 		Integer idProducto = 3421;
-		String nombre = "Fideo";
+		String nombre = "CocaCola";
 		Double precio = 920D;
-
-		Integer idCategoria = 4343;
-		String nombreCategoria = "Alimentos";
-		String descripcion = "Productos comestibles y consumibles";
-		Categoria categoria = new Categoria(idCategoria, nombreCategoria, descripcion);
-		Producto producto = new Producto(idProducto, nombre, precio, categoria);
+		Producto producto = new Bebida(idProducto, nombre, precio);
 
 		Integer cantidad = 5;
 		Boolean resultado = supermercado.agregarProductoAInventario(producto, cantidad);
@@ -90,8 +82,7 @@ public class SupermercadoTest {
 	@Test
 	public void queSePuedaActualizarPrecioProducto() {
 		Supermercado supermercado = new Supermercado();
-		Categoria categoria = new Categoria(1, "Bebida", "descripcion");
-		Producto producto = new Producto(1 ,"Coca-cola", 0.50, categoria);
+		Producto producto = new Bebida(1 ,"Coca-cola", 0.50);
 		Double nuevoPrecio = 200.0;
 
 		supermercado.agregarProductoAInventario(producto, 2);
@@ -103,9 +94,8 @@ public class SupermercadoTest {
 
 	@Test
 	public void queSePuedaAgregarProductoAlCarrito() {
-		Supermercado supermercado = new Supermercado();
-		Categoria categoria = new Categoria(1, "Bebida", "descripcion");
-		Producto producto = new Producto(1 ,"Coca-cola", 0.50, categoria);
+		Supermercado supermercado = new Supermercado();		
+		Producto producto = new Bebida(1 ,"Coca-cola", 0.50);
 		Cliente cliente = new Cliente("juan", 12333);
 
 		supermercado.agregarCliente(cliente);
@@ -124,10 +114,9 @@ public class SupermercadoTest {
 	@Test
 	public void queSePuedaEliminarProductoDelCarrito() {
 		Supermercado supermercado = new Supermercado();
-		Categoria categoria = new Categoria(1, "Bebida", "descripcion");
-		Producto producto = new Producto(1 ,"Coca-cola", 20.50, categoria);
-		Producto producto2 = new Producto(2 ,"Pepsi", 30.50, categoria);
-		Producto producto3 = new Producto(3 ,"Quilmes", 100.50, categoria);
+		Producto producto = new Bebida(1 ,"Coca-cola", 20.50);
+		Producto producto2 = new Bebida(2 ,"Pepsi", 30.50);
+		Producto producto3 = new Bebida(3 ,"Quilmes", 100.50);
 		Cliente cliente = new Cliente("juan", 12333);
 
 		supermercado.agregarCliente(cliente);
@@ -148,11 +137,10 @@ public class SupermercadoTest {
 	@Test
 	public void queSePuedaCalcularElTotalDelCarrito() {
 		Supermercado supermercado = new Supermercado();
-		Categoria categoria = new Categoria(1, "Bebida", "descripcion");
-		Producto producto = new Producto(1 ,"Coca-cola", 20.50, categoria);
-		Producto producto2 = new Producto(2 ,"Pepsi", 30.50, categoria);
-		Producto producto3 = new Producto(3 ,"Quilmes", 100.50, categoria);
-		Producto producto4 = new Producto(4,"Manaos",30.0,categoria);
+		Producto producto = new Bebida(1 ,"Coca-cola", 20.50);
+		Producto producto2 = new Bebida(2 ,"Pepsi", 30.50);
+		Producto producto3 = new Bebida(3 ,"Quilmes", 100.50);
+		Producto producto4 = new Bebida(4,"Manaos",30.0);
 		Cliente cliente = new Cliente("juan", 12333);
 		
 		supermercado.agregarCliente(cliente);
@@ -194,9 +182,8 @@ public class SupermercadoTest {
 	@Test
 	public void queSePuedaRealizarVentaYActualizarInventario() {
 		Supermercado supermercado = new Supermercado();
-		Categoria categoria = new Categoria(1, "Bebida", "descripcion");
-		Producto producto = new Producto(1 ,"Coca-cola", 20.50, categoria);
-		Producto producto2 = new Producto(2,"Pepsi", 90.50, categoria);
+		Producto producto = new Bebida(1 ,"Coca-cola", 20.50);
+		Producto producto2 = new Bebida(2,"Pepsi", 90.50);
 		Cliente cliente = new Cliente("juan", 12333);
 		MetodoPago metodoPago = MetodoPago.TARJETA_CREDITO;
 		Integer idCompra = 1;
@@ -227,6 +214,44 @@ public class SupermercadoTest {
 		assertTrue(cliente.getCarrito().getProductos().isEmpty());
 	}
 
+	@Test
+	public void queSePuedaObtenerUnaListaConTodasLasBebidasDelCarrito() {
+		Supermercado supermercado = new Supermercado();
+		Producto producto = new Bebida(1 ,"Coca-cola", 20.50);
+		Producto producto2 = new Bebida(2 ,"Pepsi", 30.50);
+		Producto producto3 = new Bebida(3 ,"Quilmes", 100.50);
+		Producto producto4 = new Bebida(4,"Manaos",30.0);
+		Producto producto5 = new Galletita(5,"Oreo",50.0);
+		Cliente cliente = new Cliente("juan", 12333);
+		
+		supermercado.agregarCliente(cliente);
+
+		supermercado.agregarProductoAInventario(producto, 2);
+		supermercado.agregarProductoAInventario(producto2, 3);
+		supermercado.agregarProductoAInventario(producto3, 5);
+		supermercado.agregarProductoAInventario(producto4, 5);
+		supermercado.agregarProductoAInventario(producto5, 10);
+
+		Integer CantidadDeProducto1 = 1;
+		Integer CantidadDeProducto2 = 1;
+		Integer CantidadDeProducto3 = 2;
+		Integer CantidadDeProducto4 = 3;
+		Integer CantidadDeProducto5 = 5;
+		
+		supermercado.agregarProductoAlCarrito(1, 12333,CantidadDeProducto1);
+		supermercado.agregarProductoAlCarrito(2, 12333,CantidadDeProducto2);
+		supermercado.agregarProductoAlCarrito(3, 12333,CantidadDeProducto3);
+		supermercado.agregarProductoAlCarrito(4, 12333,CantidadDeProducto4);
+		supermercado.agregarProductoAlCarrito(5, 12333,CantidadDeProducto5);
+		
+		List<ProductoCantidad> bebidasDelCarrito = cliente.getCarrito().obtenerBebidas();
+		
+		assertEquals(4,bebidasDelCarrito.size());
+		
+		
+	}
+	
+	
 	@Test
 	public void queSePuedaActualizarSaldoDelClienteDespuesDeLaVenta() {
 		

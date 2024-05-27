@@ -2,19 +2,19 @@ package supermercado;
 
 import java.util.Objects;
 
-public class Producto {
+public abstract class Producto {
 
 	private Integer idProducto;
 	private String nombre;
 	private Double precio;
-	private Categoria categoria;
+	
 
-	public Producto(Integer idProducto, String nombre, Double precio, Categoria categoria) {
+	public Producto(Integer idProducto, String nombre, Double precio) {
 		super();
 		this.idProducto = idProducto;
 		this.nombre = nombre;
 		this.precio = precio;
-		this.categoria = categoria;
+		
 	}
 
 	public Integer getIdProducto() {
@@ -41,13 +41,7 @@ public class Producto {
 		this.precio = precio;
 	}
 
-	public Categoria getCategoria() {
-		return categoria;
-	}
-
-	public void setCategoria(Categoria categoria) {
-		this.categoria = categoria;
-	}
+	
 
 	@Override
 	public boolean equals(Object o) {

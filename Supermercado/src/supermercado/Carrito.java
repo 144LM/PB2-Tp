@@ -1,6 +1,7 @@
 package supermercado;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class Carrito {
 	
@@ -47,4 +48,15 @@ public class Carrito {
     public void vaciarContenido() {
         productos.clear();
     }
+
+	public List<ProductoCantidad> obtenerBebidas() {
+		List<ProductoCantidad> bebidas = new ArrayList<>();
+		
+		for (ProductoCantidad b : productos) {
+			if(b.getProducto() instanceof Bebida) {
+				bebidas.add(b);
+			}
+		}
+		return bebidas;
+	}
 }
