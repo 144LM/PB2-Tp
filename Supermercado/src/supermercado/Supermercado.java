@@ -2,6 +2,7 @@ package supermercado;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 public class Supermercado implements ISupermercado {
@@ -69,7 +70,7 @@ public class Supermercado implements ISupermercado {
 	public boolean agregarProductoAlCarrito(Integer idProducto, Integer dniCliente, Integer cantidadDelProducto) {
 		Cliente cliente = buscarClientePorDni(dniCliente);
 		ProductoCantidad producto = buscarProductoCantidadPorId(idProducto);
-		
+
 		if(producto.getCantidad() < cantidadDelProducto) {
 			return false;
 		}
@@ -83,7 +84,7 @@ public class Supermercado implements ISupermercado {
 		}
 	}
 
-	private ProductoCantidad buscarProductoCantidadPorId(Integer idProducto) {
+	public ProductoCantidad buscarProductoCantidadPorId(Integer idProducto) {
 		for (ProductoCantidad productoCantidad : inventario) {
 			
 			if (productoCantidad.getProducto().getIdProducto().equals(idProducto)) {
@@ -135,5 +136,30 @@ public class Supermercado implements ISupermercado {
 		Integer idCompra = compras.size() - 1;
 		Compra nuevaCompra = new Compra(idCompra, cliente, LocalDateTime.now(), MetodoPago.EFECTIVO, EstadoCompra.PENDIENTE);
 		compras.add(nuevaCompra);
+	}
+
+	public boolean realizarVenta(Integer dniCliente) {
+		Cliente cliente = buscarClientePorDni(dniCliente);
+		if(cliente == null){
+			return false;
+		}
+		Carrito carrito = cliente.getCarrito();
+		List<ProductoCantidad> productosCarrito = carrito.getProductos();
+
+		for (ProductoCantidad productoCarrito: productosCarrito){
+			Producto producto = productoCarrito.getProducto();
+			ProductoCantidad productoInventario = inventario.get(producto.getIdProducto()-1);
+
+			if (productoInventario == null || productoInventario.getCantidad() < productoCarrito.getCantidad()){
+				return false; //sin stock suficiente
+			}
+			productoInventario.setCantidad(productoInventario.getCantidad()-productoCarrito.getCantidad());
+		}
+		vaciarCarrito(carrito);
+		return true;
+	}
+
+	public void vaciarCarrito(Carrito carrito){
+		carrito.vaciarContenido();
 	}
 }

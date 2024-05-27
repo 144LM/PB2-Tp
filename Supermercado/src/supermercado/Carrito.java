@@ -44,4 +44,7 @@ public class Carrito {
     }
 
 
+    public void vaciarContenido() {
+        productos.clear();
+    }
 }

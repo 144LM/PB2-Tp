@@ -193,7 +193,38 @@ public class SupermercadoTest {
 
 	@Test
 	public void queSePuedaRealizarVentaYActualizarInventario() {
+		Supermercado supermercado = new Supermercado();
+		Categoria categoria = new Categoria(1, "Bebida", "descripcion");
+		Producto producto = new Producto(1 ,"Coca-cola", 20.50, categoria);
+		Producto producto2 = new Producto(2,"Pepsi", 90.50, categoria);
+		Cliente cliente = new Cliente("juan", 12333);
+		MetodoPago metodoPago = MetodoPago.TARJETA_CREDITO;
+		Integer idCompra = 1;
 
+		supermercado.agregarCliente(cliente);
+		supermercado.agregarProductoAInventario(producto, 2);
+		supermercado.agregarProductoAInventario(producto2, 5);
+
+		supermercado.agregarProductoAlCarrito(1, 12333,1);
+		supermercado.agregarProductoAlCarrito(2, 12333,1);
+
+		supermercado.iniciarCompra(cliente);
+		supermercado.seleccionarMetodoDePago(metodoPago, idCompra);
+
+		Boolean compraExitosa = supermercado.realizarVenta(cliente.getDni());
+		assertTrue(compraExitosa);
+
+		ProductoCantidad productoCantidad1 = supermercado.buscarProductoCantidadPorId(1);
+		ProductoCantidad productoCantidad2 = supermercado.buscarProductoCantidadPorId(2);
+
+		Integer cantidadEsperada1 = 1;
+		Integer cantiadaEsperada2 = 4;
+
+		assertEquals(cantidadEsperada1, productoCantidad1.getCantidad());
+		assertEquals(cantiadaEsperada2, productoCantidad2.getCantidad());
+
+
+		assertTrue(cliente.getCarrito().getProductos().isEmpty());
 	}
 
 	@Test
