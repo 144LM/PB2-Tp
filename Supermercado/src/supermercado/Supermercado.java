@@ -144,14 +144,19 @@ public class Supermercado implements ISupermercado {
 			return false;
 		}
 		Carrito carrito = cliente.getCarrito();
+		//SI EL CLIENTE NO TIENE PLATA NO SE HACE LA VENTA
+		//if(cliente.getSaldo() < carrito.getTotal()) {
+		//	return false;
+		//}
+		
 		List<ProductoCantidad> productosCarrito = carrito.getProductos();
-
+		
 		for (ProductoCantidad productoCarrito: productosCarrito){
 			Producto producto = productoCarrito.getProducto();
 			ProductoCantidad productoInventario = inventario.get(producto.getIdProducto()-1);
 
-			if (productoInventario == null || productoInventario.getCantidad() < productoCarrito.getCantidad()){
-				return false; //sin stock suficiente
+			if (productoInventario == null || productoInventario.getCantidad() < productoCarrito.getCantidad() || cliente.getSaldo() < carrito.getTotal()) {
+				return false; //sin stock suficiente o sin dinero suficiente
 			}
 			productoInventario.setCantidad(productoInventario.getCantidad()-productoCarrito.getCantidad());
 		}

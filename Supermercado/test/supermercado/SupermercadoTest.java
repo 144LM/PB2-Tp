@@ -16,7 +16,7 @@ public class SupermercadoTest {
 	
 		Supermercado supermercado = new Supermercado();
 
-		Cliente cliente = new Cliente("Juan",234234);
+		Cliente cliente = new Cliente("Juan",234234,500.0);
 
 		supermercado.agregarCliente(cliente);
 
@@ -29,7 +29,7 @@ public class SupermercadoTest {
 
 		Supermercado supermercado = new Supermercado();
 
-		Cliente cliente = new Cliente("Juan",234234);
+		Cliente cliente = new Cliente("Juan",234234,500.0);
 		
 		supermercado.agregarCliente(cliente);
 
@@ -96,7 +96,7 @@ public class SupermercadoTest {
 	public void queSePuedaAgregarProductoAlCarrito() {
 		Supermercado supermercado = new Supermercado();		
 		Producto producto = new Bebida(1 ,"Coca-cola", 0.50);
-		Cliente cliente = new Cliente("juan", 12333);
+		Cliente cliente = new Cliente("juan", 12333,500.0);
 
 		supermercado.agregarCliente(cliente);
 		supermercado.agregarProductoAInventario(producto, 2);
@@ -117,7 +117,7 @@ public class SupermercadoTest {
 		Producto producto = new Bebida(1 ,"Coca-cola", 20.50);
 		Producto producto2 = new Bebida(2 ,"Pepsi", 30.50);
 		Producto producto3 = new Bebida(3 ,"Quilmes", 100.50);
-		Cliente cliente = new Cliente("juan", 12333);
+		Cliente cliente = new Cliente("juan", 12333,500.0);
 
 		supermercado.agregarCliente(cliente);
 
@@ -141,7 +141,7 @@ public class SupermercadoTest {
 		Producto producto2 = new Bebida(2 ,"Pepsi", 30.50);
 		Producto producto3 = new Bebida(3 ,"Quilmes", 100.50);
 		Producto producto4 = new Bebida(4,"Manaos",30.0);
-		Cliente cliente = new Cliente("juan", 12333);
+		Cliente cliente = new Cliente("juan", 12333,500.0);
 		
 		supermercado.agregarCliente(cliente);
 
@@ -167,7 +167,7 @@ public class SupermercadoTest {
 	@Test
 	public void queSePuedaSeleccionarFormaDePago() {
 		Supermercado supermercado = new Supermercado();
-		Cliente cliente = new Cliente("juan", 12333);
+		Cliente cliente = new Cliente("juan", 12333,500.0);
 		MetodoPago metodoPago = MetodoPago.TARJETA_CREDITO;
 		Integer idCompra = 1;
 
@@ -184,7 +184,7 @@ public class SupermercadoTest {
 		Supermercado supermercado = new Supermercado();
 		Producto producto = new Bebida(1 ,"Coca-cola", 20.50);
 		Producto producto2 = new Bebida(2,"Pepsi", 90.50);
-		Cliente cliente = new Cliente("juan", 12333);
+		Cliente cliente = new Cliente("juan", 12333,500.0);
 		MetodoPago metodoPago = MetodoPago.TARJETA_CREDITO;
 		Integer idCompra = 1;
 
@@ -222,7 +222,7 @@ public class SupermercadoTest {
 		Producto producto3 = new Bebida(3 ,"Quilmes", 100.50);
 		Producto producto4 = new Bebida(4,"Manaos",30.0);
 		Producto producto5 = new Galletita(5,"Oreo",50.0);
-		Cliente cliente = new Cliente("juan", 12333);
+		Cliente cliente = new Cliente("juan", 12333,500.0);
 		
 		supermercado.agregarCliente(cliente);
 
@@ -253,7 +253,27 @@ public class SupermercadoTest {
 	
 	
 	@Test
-	public void queSePuedaActualizarSaldoDelClienteDespuesDeLaVenta() {
+	public void queNoSePuedaRealizarLaVentaSiElClienteNoTieneDineroSuficiente() {
+		Supermercado supermercado = new Supermercado();
+		Producto producto = new Bebida(1 ,"Coca-cola", 20.50);
+		Producto producto2 = new Bebida(2,"Pepsi", 90.50);
+		Cliente cliente = new Cliente("juan", 12333,30.0);
+		MetodoPago metodoPago = MetodoPago.TARJETA_CREDITO;
+		Integer idCompra = 1;
+
+		supermercado.agregarCliente(cliente);
+		supermercado.agregarProductoAInventario(producto, 2);
+		supermercado.agregarProductoAInventario(producto2, 5);
+
+		supermercado.agregarProductoAlCarrito(1, 12333,1);
+		supermercado.agregarProductoAlCarrito(2, 12333,1);
+
+		supermercado.iniciarCompra(cliente);
+		supermercado.seleccionarMetodoDePago(metodoPago, idCompra);
+
+		Boolean ventaFallida = supermercado.realizarVenta(cliente.getDni());
+		
+		assertFalse(ventaFallida);
 		
 	}
 
