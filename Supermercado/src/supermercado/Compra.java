@@ -10,14 +10,15 @@ public class Compra {
 	private MetodoPago metodoPago;
 	private EstadoCompra estadoCompra;
 
-	public Compra(Integer idCompra, Cliente cliente, LocalDateTime now, MetodoPago metodoPago, EstadoCompra estadoCompra) {
+	public Compra(Integer idCompra, Cliente cliente, LocalDateTime now, MetodoPago metodoPago,
+			EstadoCompra estadoCompra) {
 		// TODO Auto-generated constructor stub
 		this.idCompra = idCompra;
 		this.cliente = cliente;
 		this.now = now;
 		this.metodoPago = metodoPago;
 		this.estadoCompra = estadoCompra;
-		
+
 	}
 
 	public Integer getIdCompra() {
@@ -59,7 +60,5 @@ public class Compra {
 	public void setEstadoCompra(EstadoCompra estadoCompra) {
 		this.estadoCompra = estadoCompra;
 	}
-	
-	
 
 }

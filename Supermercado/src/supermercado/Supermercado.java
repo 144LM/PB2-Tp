@@ -2,13 +2,12 @@ package supermercado;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 
 public class Supermercado implements ISupermercado {
 
 	private List<Cliente> clientes;
-	private List<ProductoCantidad>inventario;
+	private List<ProductoCantidad> inventario;
 	private List<Compra> compras;
 
 	public Supermercado() {
@@ -16,7 +15,6 @@ public class Supermercado implements ISupermercado {
 		this.inventario = new ArrayList<>();
 		this.compras = new ArrayList<>();
 	}
-	
 
 	@Override
 	public Boolean agregarCliente(Cliente cliente) {
@@ -27,7 +25,7 @@ public class Supermercado implements ISupermercado {
 	public List<Cliente> getClientes() {
 		return clientes;
 	}
-	
+
 	@Override
 	public List<ProductoCantidad> getInventario() {
 		return inventario;
@@ -46,19 +44,19 @@ public class Supermercado implements ISupermercado {
 	}
 
 	public Boolean agregarProductoAInventario(Producto producto, Integer cantidad) {
-        for (ProductoCantidad productoCantidad : inventario) {
-            if (productoCantidad.getProducto().getIdProducto().equals(producto.getIdProducto())) {
-                productoCantidad.setCantidad(productoCantidad.getCantidad() + cantidad);
-                return true;
-            }
-        }
-        ProductoCantidad nuevoProductoCantidad = new ProductoCantidad(producto, cantidad);
-        return inventario.add(nuevoProductoCantidad);
-    }
+		for (ProductoCantidad productoCantidad : inventario) {
+			if (productoCantidad.getProducto().getIdProducto().equals(producto.getIdProducto())) {
+				productoCantidad.setCantidad(productoCantidad.getCantidad() + cantidad);
+				return true;
+			}
+		}
+		ProductoCantidad nuevoProductoCantidad = new ProductoCantidad(producto, cantidad);
+		return inventario.add(nuevoProductoCantidad);
+	}
 
 	@Override
 	public Boolean eliminarProductoPorId(Integer idProducto) {
-		
+
 		for (ProductoCantidad productoCantidad : inventario) {
 			if (productoCantidad.getProducto().getIdProducto().equals(idProducto)) {
 				inventario.remove(productoCantidad);
@@ -66,7 +64,7 @@ public class Supermercado implements ISupermercado {
 			}
 		}
 		return false;
-		
+
 	}
 
 	@Override
@@ -74,12 +72,13 @@ public class Supermercado implements ISupermercado {
 		Cliente cliente = buscarClientePorDni(dniCliente);
 		ProductoCantidad producto = buscarProductoCantidadPorId(idProducto);
 
-		if(producto.getCantidad() < cantidadDelProducto) {
+		if (producto.getCantidad() < cantidadDelProducto) {
 			return false;
 		}
-		
+
 		if (cliente != null && producto != null) {
-			ProductoCantidad productoCantidadEnElCarrito = new ProductoCantidad(producto.getProducto(), cantidadDelProducto);
+			ProductoCantidad productoCantidadEnElCarrito = new ProductoCantidad(producto.getProducto(),
+					cantidadDelProducto);
 			cliente.getCarrito().agregarProducto(productoCantidadEnElCarrito);
 			return true;
 		} else {
@@ -89,14 +88,14 @@ public class Supermercado implements ISupermercado {
 
 	public ProductoCantidad buscarProductoCantidadPorId(Integer idProducto) {
 		for (ProductoCantidad productoCantidad : inventario) {
-			
+
 			if (productoCantidad.getProducto().getIdProducto().equals(idProducto)) {
 				return productoCantidad;
 			}
 		}
 		return null;
 	}
-	
+
 	private Cliente buscarClientePorDni(Integer dniCliente) {
 		for (Cliente cliente : clientes) {
 			if (cliente.getDni().equals(dniCliente)) {
@@ -132,42 +131,43 @@ public class Supermercado implements ISupermercado {
 	}
 
 	public Compra buscarCompraPorId(Integer idCompra) {
-		return compras.get(idCompra-1);
+		return compras.get(idCompra - 1);
 	}
 
 	public void iniciarCompra(Cliente cliente) {
 		Integer idCompra = compras.size() - 1;
-		Compra nuevaCompra = new Compra(idCompra, cliente, LocalDateTime.now(), MetodoPago.EFECTIVO, EstadoCompra.PENDIENTE);
+		Compra nuevaCompra = new Compra(idCompra, cliente, LocalDateTime.now(), MetodoPago.EFECTIVO,
+				EstadoCompra.PENDIENTE);
 		compras.add(nuevaCompra);
 	}
 
 	public boolean realizarVenta(Integer dniCliente) {
 		Cliente cliente = buscarClientePorDni(dniCliente);
-		if(cliente == null){
+		if (cliente == null) {
 			return false;
 		}
 		Carrito carrito = cliente.getCarrito();
 		List<ProductoCantidad> productosCarrito = carrito.getProductos();
-		
-		for (ProductoCantidad productoCarrito: productosCarrito){
-			Producto producto = productoCarrito.getProducto();
-			ProductoCantidad productoInventario = inventario.get(producto.getIdProducto()-1);
 
-			if (productoInventario == null || productoInventario.getCantidad() < productoCarrito.getCantidad() || cliente.getSaldo() < carrito.getTotal()) {
-				return false; //sin stock suficiente o sin dinero suficiente
+		for (ProductoCantidad productoCarrito : productosCarrito) {
+			Producto producto = productoCarrito.getProducto();
+			ProductoCantidad productoInventario = inventario.get(producto.getIdProducto() - 1);
+
+			if (productoInventario == null || productoInventario.getCantidad() < productoCarrito.getCantidad()
+					|| cliente.getSaldo() < carrito.getTotal()) {
+				return false; // sin stock suficiente o sin dinero suficiente
 			}
-			productoInventario.setCantidad(productoInventario.getCantidad()-productoCarrito.getCantidad());
+			productoInventario.setCantidad(productoInventario.getCantidad() - productoCarrito.getCantidad());
 		}
-		Double restoDeSaldo = cliente.getSaldo()-carrito.getTotal();
+		Double restoDeSaldo = cliente.getSaldo() - carrito.getTotal();
 		cliente.setSaldo(restoDeSaldo);
 		vaciarCarrito(carrito);
 		return true;
 	}
 
-	public void vaciarCarrito(Carrito carrito){
+	public void vaciarCarrito(Carrito carrito) {
 		carrito.vaciarContenido();
 	}
-
 
 	public List<ProductoCantidad> buscarProductosPorCategoria(Integer idCategoria) {
 		List<ProductoCantidad> productosEncontrados = new ArrayList<>();

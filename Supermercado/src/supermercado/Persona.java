@@ -1,7 +1,7 @@
 package supermercado;
 
 public class Persona {
-	
+
 	private String nombre;
 	private Integer dni;
 
