@@ -42,14 +42,18 @@ El proyecto está estructurado en las siguientes clases:
 ## Integrantes del proyecto
 
 -Larralde Francisco
+
 -Lucas Medrano
+
 -Javier Cabrera Morel
+
 -Juan Manuel Albino
+
 -Leonardo Arias
 
 
 ## Licencia
 
-Este proyecto está licenciado bajo la Licencia DIT UNlAM. Consulta el archivo LICENSE para obtener más detalles.
+Este proyecto está licenciado bajo la Licencia DIT UNLAM. Consulta el archivo LICENSE para obtener más detalles.
 
 
