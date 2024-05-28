@@ -6,9 +6,9 @@ Supermercado App es una aplicación de consola desarrollada en Java para gestion
 
 ## Características
 
-- Gestión de clientes: agregar, eliminar y listar clientes.
+- Gestión de clientes: Es posible agregar, eliminar y listar clientes en la base de datos.
 
-- Gestión de productos: agregar, eliminar y listar productos.
+- Gestión de productos: Se puede agregar y eliminar productos del catálogo del supermercado.
 
 - Carrito de compras: agregar y eliminar productos del carrito.
 
@@ -38,5 +38,18 @@ El proyecto está estructurado en las siguientes clases:
 
 - ISupermercado: Interfaz que define los métodos que deben implementarse en la clase Supermercado.
 
-  
+
+## Integrantes del proyecto
+
+-Larralde Francisco
+-Lucas Medrano
+-Javier Cabrera Morel
+-Juan Manuel Albino
+-Leonardo Arias
+
+
+## Licencia
+
+Este proyecto está licenciado bajo la Licencia DIT UNlAM. Consulta el archivo LICENSE para obtener más detalles.
+
 
