@@ -41,19 +41,24 @@ El proyecto está estructurado en las siguientes clases:
 
 ## Integrantes del proyecto
 
--Larralde Francisco
+-Larralde Francisco.
 
--Lucas Medrano
+-Lucas Medrano.
 
--Javier Cabrera Morel
+-Javier Cabrera Morel.
 
--Juan Manuel Albino
+-Juan Manuel Albino.
 
--Leonardo Arias
+-Leonardo Arias.
 
 
 ## Licencia
 
 Este proyecto está licenciado bajo la Licencia DIT UNLAM. Consulta el archivo LICENSE para obtener más detalles.
+
+
+
+- Este archivo `README.md` proporciona una visión general del proyecto, cómo instalarlo y usarlo, contribuciones y contacto. Asegúrate de personalizar la información de contacto y cualquier otra sección específica según tu necesidad.
+
 
 
