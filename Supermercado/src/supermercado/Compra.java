@@ -3,16 +3,13 @@ package supermercado;
 import java.time.LocalDateTime;
 
 public class Compra {
-
 	private Integer idCompra;
 	private Cliente cliente;
 	private LocalDateTime now;
 	private MetodoPago metodoPago;
 	private EstadoCompra estadoCompra;
 
-	public Compra(Integer idCompra, Cliente cliente, LocalDateTime now, MetodoPago metodoPago,
-			EstadoCompra estadoCompra) {
-		// TODO Auto-generated constructor stub
+	public Compra(Integer idCompra, Cliente cliente, LocalDateTime now, MetodoPago metodoPago, EstadoCompra estadoCompra) {
 		this.idCompra = idCompra;
 		this.cliente = cliente;
 		this.now = now;

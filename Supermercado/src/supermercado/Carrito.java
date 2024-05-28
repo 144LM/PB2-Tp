@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Carrito {
-
 	private ArrayList<ProductoCantidad> productos;
 
 	public Carrito() {

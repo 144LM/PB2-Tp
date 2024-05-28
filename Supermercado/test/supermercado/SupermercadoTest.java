@@ -6,7 +6,6 @@ import org.junit.Before;
 import org.junit.Test;
 
 public class SupermercadoTest {
-
     private Supermercado supermercado;
     private Categoria categoriaBebidas;
     private Categoria categoriaGalletitas;

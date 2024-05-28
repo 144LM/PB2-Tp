@@ -5,7 +5,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Supermercado implements ISupermercado {
-
 	private List<Cliente> clientes;
 	private List<ProductoCantidad> inventario;
 	private List<Compra> compras;

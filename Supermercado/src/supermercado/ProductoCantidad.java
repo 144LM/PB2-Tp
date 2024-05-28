@@ -1,7 +1,6 @@
 package supermercado;
 
 public class ProductoCantidad {
-
 	private Producto producto;
 	private Integer cantidad;
 

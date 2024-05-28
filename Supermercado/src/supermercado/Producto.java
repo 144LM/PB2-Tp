@@ -3,7 +3,6 @@ package supermercado;
 import java.util.Objects;
 
 public class Producto {
-
 	private Integer idProducto;
 	private String nombre;
 	private Double precio;
