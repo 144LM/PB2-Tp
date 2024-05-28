@@ -1,10 +1,10 @@
-# PB2-Tp - Supermercado App
+# PB2-TP - Supermercado App
 
-Supermercado App es una aplicación de consola desarrollada en Java para gestionar las operaciones básicas de un supermercado. Permite la gestión de clientes, productos, carritos de compra, y la realización de ventas.
+Supermercado App es una aplicación desarrollada en Java para gestionar las operaciones básicas de un supermercado. Permite la gestión de clientes y productos, además de la realización de compras y ventas.
 
 
 
-## Características
+## Características de la aplicación
 
 - Gestión de clientes: Es posible agregar, eliminar y listar clientes en la base de datos.
 
@@ -22,6 +22,8 @@ Supermercado App es una aplicación de consola desarrollada en Java para gestion
 
 El proyecto está estructurado en las siguientes clases:
 
+- Supermercado: Implementa la lógica del negocio y las operaciones del supermercado.
+
 - Carrito: Gestiona los productos agregados por el cliente.
   
 - Categoria: Representa la categoría de un producto.
@@ -31,8 +33,6 @@ El proyecto está estructurado en las siguientes clases:
 - Producto: Representa un producto disponible en el supermercado.
 
 - ProductoCantidad: Asocia un producto con una cantidad específica.
-
-- Supermercado: Implementa la lógica del negocio y las operaciones del supermercado.
 
 - Persona: Es la clase que contiene información básica de una persona, como el nombre y DNI.
 
