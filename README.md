@@ -60,7 +60,5 @@ Este proyecto está licenciado bajo la Licencia DIT UNLAM. Consulta el archivo L
 
 
 
-Este archivo `README.md` proporciona una visión general del proyecto, cómo instalarlo y usarlo, contribuciones y contacto. Asegúrate de personalizar la información de contacto y cualquier otra sección específica según tu necesidad.
-
 
 
