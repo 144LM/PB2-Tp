@@ -45,13 +45,16 @@ public class Supermercado implements ISupermercado {
 
 	}
 
-	@Override
 	public Boolean agregarProductoAInventario(Producto producto, Integer cantidad) {
-		
-		ProductoCantidad productoCantidad = new ProductoCantidad(producto,cantidad);
-		return inventario.add(productoCantidad);
-		
-	}
+        for (ProductoCantidad productoCantidad : inventario) {
+            if (productoCantidad.getProducto().getIdProducto().equals(producto.getIdProducto())) {
+                productoCantidad.setCantidad(productoCantidad.getCantidad() + cantidad);
+                return true;
+            }
+        }
+        ProductoCantidad nuevoProductoCantidad = new ProductoCantidad(producto, cantidad);
+        return inventario.add(nuevoProductoCantidad);
+    }
 
 	@Override
 	public Boolean eliminarProductoPorId(Integer idProducto) {
@@ -163,5 +166,16 @@ public class Supermercado implements ISupermercado {
 
 	public void vaciarCarrito(Carrito carrito){
 		carrito.vaciarContenido();
+	}
+
+
+	public List<ProductoCantidad> buscarProductosPorCategoria(Integer idCategoria) {
+		List<ProductoCantidad> productosEncontrados = new ArrayList<>();
+		for (ProductoCantidad productoCantidad : inventario) {
+			if (productoCantidad.getProducto().getCategoria().getIdCategoria().equals(idCategoria)) {
+				productosEncontrados.add(productoCantidad);
+			}
+		}
+		return productosEncontrados;
 	}
 }

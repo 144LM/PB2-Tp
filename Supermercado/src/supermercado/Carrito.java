@@ -4,27 +4,27 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Carrito {
-	
-    private ArrayList<ProductoCantidad> productos;
 
-    public Carrito() {
-        this.productos = new ArrayList<ProductoCantidad>();
-    }
+	private ArrayList<ProductoCantidad> productos;
 
-    public void agregarProducto(ProductoCantidad producto) {
-        productos.add(producto);
-    }
+	public Carrito() {
+		this.productos = new ArrayList<ProductoCantidad>();
+	}
 
-    public void eliminarProducto(Integer idproducto) {
-        ProductoCantidad productoCantidadDelCarrito = buscarProductoCantidadPorId(idproducto);
-        if(productoCantidadDelCarrito != null) {
-        	productos.remove(productoCantidadDelCarrito);
-        }
-    }
-    
-    private ProductoCantidad buscarProductoCantidadPorId(Integer idProducto) {
+	public void agregarProducto(ProductoCantidad producto) {
+		productos.add(producto);
+	}
+
+	public void eliminarProducto(Integer idproducto) {
+		ProductoCantidad productoCantidadDelCarrito = buscarProductoCantidadPorId(idproducto);
+		if (productoCantidadDelCarrito != null) {
+			productos.remove(productoCantidadDelCarrito);
+		}
+	}
+
+	private ProductoCantidad buscarProductoCantidadPorId(Integer idProducto) {
 		for (ProductoCantidad productoCantidad : productos) {
-			
+
 			if (productoCantidad.getProducto().getIdProducto().equals(idProducto)) {
 				return productoCantidad;
 			}
@@ -32,31 +32,30 @@ public class Carrito {
 		return null;
 	}
 
-    public ArrayList<ProductoCantidad> getProductos() {
-        return productos;
-    }
+	public ArrayList<ProductoCantidad> getProductos() {
+		return productos;
+	}
 
-    public Double getTotal() {
-        double total = 0.0;
-        for (ProductoCantidad productoCantidad : productos) {
-            total += productoCantidad.getProducto().getPrecio() * productoCantidad.getCantidad();
-        }
-        return total;
-    }
+	public Double getTotal() {
+		double total = 0.0;
+		for (ProductoCantidad productoCantidad : productos) {
+			total += productoCantidad.getProducto().getPrecio() * productoCantidad.getCantidad();
+		}
+		return total;
+	}
 
+	public void vaciarContenido() {
+		productos.clear();
+	}
 
-    public void vaciarContenido() {
-        productos.clear();
-    }
-
-	public List<ProductoCantidad> obtenerBebidas() {
-		List<ProductoCantidad> bebidas = new ArrayList<>();
-		
-		for (ProductoCantidad b : productos) {
-			if(b.getProducto() instanceof Bebida) {
-				bebidas.add(b);
+	public List<ProductoCantidad> buscarProductosPorCategoria(Integer idCategoria) {
+		List<ProductoCantidad> productosEncontrados = new ArrayList<>();
+		for (ProductoCantidad productoCantidad : productos) {
+			if (productoCantidad.getProducto().getCategoria().getIdCategoria().equals(idCategoria)) {
+				productosEncontrados.add(productoCantidad);
 			}
 		}
-		return bebidas;
+		return productosEncontrados;
 	}
+
 }
