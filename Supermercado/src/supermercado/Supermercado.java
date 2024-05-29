@@ -8,11 +8,13 @@ public class Supermercado implements ISupermercado {
 	private List<Cliente> clientes;
 	private List<ProductoCantidad> inventario;
 	private List<Compra> compras;
+	private Integer generadorIdCompra;
 
 	public Supermercado() {
 		this.clientes = new ArrayList<>();
 		this.inventario = new ArrayList<>();
 		this.compras = new ArrayList<>();
+		this.generadorIdCompra = 0;
 	}
 
 	@Override
@@ -134,7 +136,7 @@ public class Supermercado implements ISupermercado {
 	}
 
 	public void iniciarCompra(Cliente cliente) {
-		Integer idCompra = compras.size() - 1;
+		Integer idCompra = generadorIdCompra++;
 		Compra nuevaCompra = new Compra(idCompra, cliente, LocalDateTime.now(), MetodoPago.EFECTIVO,
 				EstadoCompra.PENDIENTE);
 		compras.add(nuevaCompra);
