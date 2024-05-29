@@ -199,4 +199,18 @@ public class SupermercadoTest {
         boolean resultado = supermercado.eliminarClientePorDni(dniInexistente);
         assertFalse(resultado);
     }
+    
+    @Test
+    public void queNoSePuedaRealizarVentaConCarritoVacio() {
+        Cliente clienteNuevo = new Cliente("Pedro", 45678, 1000.0);
+        supermercado.agregarCliente(clienteNuevo);
+        supermercado.iniciarCompra(clienteNuevo);
+        supermercado.seleccionarMetodoDePago(MetodoPago.TARJETA_CREDITO, 1);
+
+        boolean resultado = supermercado.realizarVenta(clienteNuevo.getDni());
+        assertFalse(resultado);
+    }
+    
+    
+    
 }

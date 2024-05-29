@@ -141,28 +141,35 @@ public class Supermercado implements ISupermercado {
 	}
 
 	public boolean realizarVenta(Integer dniCliente) {
-		Cliente cliente = buscarClientePorDni(dniCliente);
-		if (cliente == null) {
-			return false;
-		}
-		Carrito carrito = cliente.getCarrito();
-		List<ProductoCantidad> productosCarrito = carrito.getProductos();
-
-		for (ProductoCantidad productoCarrito : productosCarrito) {
-			Producto producto = productoCarrito.getProducto();
-			ProductoCantidad productoInventario = inventario.get(producto.getIdProducto() - 1);
-
-			if (productoInventario == null || productoInventario.getCantidad() < productoCarrito.getCantidad()
-					|| cliente.getSaldo() < carrito.getTotal()) {
-				return false; // sin stock suficiente o sin dinero suficiente
-			}
-			productoInventario.setCantidad(productoInventario.getCantidad() - productoCarrito.getCantidad());
-		}
-		Double restoDeSaldo = cliente.getSaldo() - carrito.getTotal();
-		cliente.setSaldo(restoDeSaldo);
-		vaciarCarrito(carrito);
-		return true;
+	    Cliente cliente = buscarClientePorDni(dniCliente);
+	    if (cliente == null) {
+	        return false; 
+	    }
+	    Carrito carrito = cliente.getCarrito();
+	    List<ProductoCantidad> productosCarrito = carrito.getProductos();
+	    
+	    // verificar si el carrito está vacio
+	    if (productosCarrito.isEmpty()) {
+	        return false; // no se puede realizar la venta con un carrito vacio
+	    }
+	    
+	    
+	    for (ProductoCantidad productoCarrito : productosCarrito) {
+	        Producto producto = productoCarrito.getProducto();
+	        ProductoCantidad productoInventario = buscarProductoCantidadPorId(producto.getIdProducto());
+	        
+	        if (productoInventario == null || productoInventario.getCantidad() < productoCarrito.getCantidad()
+	                || cliente.getSaldo() < carrito.getTotal()) {
+	            return false; // sin stock suficiente o sin dinero suficiente
+	        }
+	        productoInventario.setCantidad(productoInventario.getCantidad() - productoCarrito.getCantidad());
+	    }
+	    Double restoDeSaldo = cliente.getSaldo() - carrito.getTotal();
+	    cliente.setSaldo(restoDeSaldo);
+	    vaciarCarrito(carrito);
+	    return true;
 	}
+	
 
 	public void vaciarCarrito(Carrito carrito) {
 		carrito.vaciarContenido();
