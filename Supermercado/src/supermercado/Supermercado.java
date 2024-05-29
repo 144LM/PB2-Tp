@@ -186,4 +186,14 @@ public class Supermercado implements ISupermercado {
 		}
 		return productosEncontrados;
 	}
+	
+	public List<Producto> buscarProductosPorNombre(String nombre) {
+        List<Producto> productosEncontrados = new ArrayList<>();
+        for (ProductoCantidad productoCantidad : inventario) {
+            if (productoCantidad.getProducto().getNombre().equals(nombre)) {
+                productosEncontrados.add(productoCantidad.getProducto());
+            }
+        }
+        return productosEncontrados;
+    }
 }

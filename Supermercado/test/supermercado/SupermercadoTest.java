@@ -2,6 +2,8 @@ package supermercado;
 
 import static org.junit.Assert.*;
 
+import java.util.List;
+
 import org.junit.Before;
 import org.junit.Test;
 
@@ -211,6 +213,34 @@ public class SupermercadoTest {
         assertFalse(resultado);
     }
     
+    
+    @Test
+    public void queSePuedanObtenerProductosPorNombre() {
+        Producto producto1 = new Producto(1, "Coca-cola", 20.50, categoriaBebidas);
+        Producto producto2 = new Producto(2, "Pepsi", 30.50, categoriaBebidas);
+        Producto producto3 = new Producto(3, "Quilmes", 100.50, categoriaBebidas);
+        
+        supermercado.agregarProductoAInventario(producto1, 2);
+        supermercado.agregarProductoAInventario(producto2, 3);
+        supermercado.agregarProductoAInventario(producto3, 5);
+       
+        List<Producto> productosCocaCola = supermercado.buscarProductosPorNombre("Coca-cola");
+
+        
+        assertEquals(1, productosCocaCola.size());
+
+        
+        assertEquals("Coca-cola", productosCocaCola.get(0).getNombre());
+        assertEquals(Double.valueOf(20.50), productosCocaCola.get(0).getPrecio());
+    }
+    
+    
+    @Test
+    public void queNoSePuedaEliminarProductoInexistente() {
+        Integer idProductoInexistente = 123456789;
+        boolean resultado = supermercado.eliminarProductoPorId(idProductoInexistente);
+        assertFalse(resultado);
+    }
     
     
 }
