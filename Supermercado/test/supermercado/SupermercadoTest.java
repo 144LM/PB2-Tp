@@ -192,4 +192,11 @@ public class SupermercadoTest {
 
         assertFalse(supermercado.realizarVenta(clienteSinDinero.getDni()));
     }
+    
+    @Test
+    public void queNoSePuedaEliminarClienteInexistente() {
+        Integer dniInexistente = 12345678;
+        boolean resultado = supermercado.eliminarClientePorDni(dniInexistente);
+        assertFalse(resultado);
+    }
 }
