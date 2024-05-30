@@ -41,7 +41,7 @@ El proyecto está estructurado en las siguientes clases:
 
 ## Integrantes del proyecto
 
--Larralde Francisco.
+-Francisco Larralde.
 
 -Lucas Medrano.
 
