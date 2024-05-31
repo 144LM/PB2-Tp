@@ -69,7 +69,7 @@ public class Supermercado implements ISupermercado {
 	}
 
 	@Override
-	public boolean agregarProductoAlCarrito(Integer idProducto, Integer dniCliente, Integer cantidadDelProducto) {
+	public boolean agregarProductoAlCarrito(Integer idProducto, Integer dniCliente, Integer cantidadDelProducto) throws Exception {
 		Cliente cliente = buscarClientePorDni(dniCliente);
 		ProductoCantidad producto = buscarProductoCantidadPorId(idProducto);
 
@@ -97,17 +97,17 @@ public class Supermercado implements ISupermercado {
 		return null;
 	}
 
-	private Cliente buscarClientePorDni(Integer dniCliente) {
+	public Cliente buscarClientePorDni(Integer dniCliente) throws Exception{
 		for (Cliente cliente : clientes) {
 			if (cliente.getDni().equals(dniCliente)) {
 				return cliente;
 			}
 		}
-		return null;
+		throw new Exception();
 	}
 
 	@Override
-	public boolean eliminarProductoDelCarrito(Integer idProducto, Integer dniCliente) {
+	public boolean eliminarProductoDelCarrito(Integer idProducto, Integer dniCliente) throws Exception {
 		Cliente cliente = buscarClientePorDni(dniCliente);
 
 		if (cliente != null) {
@@ -142,7 +142,7 @@ public class Supermercado implements ISupermercado {
 		compras.add(nuevaCompra);
 	}
 
-	public boolean realizarVenta(Integer dniCliente) {
+	public boolean realizarVenta(Integer dniCliente) throws Exception {
 	    Cliente cliente = buscarClientePorDni(dniCliente);
 	    if (cliente == null) {
 	        return false; 
