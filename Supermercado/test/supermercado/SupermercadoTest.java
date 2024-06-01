@@ -68,7 +68,7 @@ public class SupermercadoTest {
     }
 
     @Test
-    public void queSePuedaAgregarProductoAlCarrito() throws Exception {
+    public void queSePuedaAgregarProductoAlCarrito() throws NullPointerException {
         Producto producto = new Producto(1, "Coca-cola", 0.50, categoriaBebidas);
         supermercado.agregarProductoAInventario(producto, 2);
         supermercado.agregarProductoAlCarrito(producto.getIdProducto(), cliente.getDni(), 2);
@@ -79,7 +79,7 @@ public class SupermercadoTest {
     }
 
     @Test
-    public void queSePuedaEliminarProductoDelCarrito() throws Exception {
+    public void queSePuedaEliminarProductoDelCarrito() throws NullPointerException {
         Producto producto1 = new Producto(1, "Coca-cola", 20.50, categoriaBebidas);
         Producto producto2 = new Producto(2, "Pepsi", 30.50, categoriaBebidas);
         supermercado.agregarProductoAInventario(producto1, 2);
@@ -92,7 +92,7 @@ public class SupermercadoTest {
     }
 
     @Test
-    public void queSePuedaCalcularElTotalDelCarrito() throws Exception {
+    public void queSePuedaCalcularElTotalDelCarrito() throws NullPointerException {
         Producto producto1 = new Producto(1, "Coca-cola", 20.50, categoriaBebidas);
         Producto producto2 = new Producto(2, "Pepsi", 30.50, categoriaBebidas);
         Producto producto3 = new Producto(3, "Quilmes", 100.50, categoriaBebidas);
@@ -117,7 +117,7 @@ public class SupermercadoTest {
     }
 
     @Test
-    public void queSePuedaRealizarVentaYActualizarInventario() throws Exception {
+    public void queSePuedaRealizarVentaYActualizarInventario() throws NullPointerException {
         Producto producto1 = new Producto(1, "Coca-cola", 20.50, categoriaBebidas);
         Producto producto2 = new Producto(2, "Pepsi", 90.50, categoriaBebidas);
 
@@ -135,7 +135,7 @@ public class SupermercadoTest {
     }
 
     @Test
-    public void queSePuedaHacerUnaListaDeProductosPorCategoriaEnCarrito() throws Exception {
+    public void queSePuedaHacerUnaListaDeProductosPorCategoriaEnCarrito() throws NullPointerException {
         Producto producto1 = new Producto(1, "Coca-cola", 20.50, categoriaBebidas);
         Producto producto2 = new Producto(2, "Pepsi", 30.50, categoriaBebidas);
         Producto producto3 = new Producto(3, "Quilmes", 100.50, categoriaBebidas);
@@ -181,7 +181,7 @@ public class SupermercadoTest {
     }
 
     @Test
-    public void queNoSePuedaRealizarLaVentaSiElClienteNoTieneDineroSuficiente() throws Exception {
+    public void queNoSePuedaRealizarLaVentaSiElClienteNoTieneDineroSuficiente() throws NullPointerException {
         Producto producto1 = new Producto(1, "Coca-cola", 20.50, categoriaBebidas);
         Producto producto2 = new Producto(2, "Pepsi", 90.50, categoriaBebidas);
         Cliente clienteSinDinero = new Cliente("Pedro", 45678, 30.0);
@@ -203,7 +203,7 @@ public class SupermercadoTest {
     }
     
     @Test
-    public void queNoSePuedaRealizarVentaConCarritoVacio() throws Exception {
+    public void queNoSePuedaRealizarVentaConCarritoVacio() throws NullPointerException {
         Cliente clienteNuevo = new Cliente("Pedro", 45678, 1000.0);
         supermercado.agregarCliente(clienteNuevo);
         supermercado.iniciarCompra(clienteNuevo);
@@ -245,7 +245,7 @@ public class SupermercadoTest {
     @Test
     public void clienteNoEncontradoLanzaUnaExcepcion(){
         Cliente cliente = new Cliente("Pedro", 45678, 1000.0);
-        assertThrows(Exception.class, () -> {
+        assertThrows(NullPointerException.class, () -> {
             supermercado.buscarClientePorDni(cliente.getDni());
         });
     }

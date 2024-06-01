@@ -57,7 +57,6 @@ public class Supermercado implements ISupermercado {
 
 	@Override
 	public Boolean eliminarProductoPorId(Integer idProducto) {
-
 		for (ProductoCantidad productoCantidad : inventario) {
 			if (productoCantidad.getProducto().getIdProducto().equals(idProducto)) {
 				inventario.remove(productoCantidad);
@@ -65,11 +64,10 @@ public class Supermercado implements ISupermercado {
 			}
 		}
 		return false;
-
 	}
 
 	@Override
-	public boolean agregarProductoAlCarrito(Integer idProducto, Integer dniCliente, Integer cantidadDelProducto) throws Exception {
+	public boolean agregarProductoAlCarrito(Integer idProducto, Integer dniCliente, Integer cantidadDelProducto) throws NullPointerException {
 		Cliente cliente = buscarClientePorDni(dniCliente);
 		ProductoCantidad producto = buscarProductoCantidadPorId(idProducto);
 
@@ -89,7 +87,6 @@ public class Supermercado implements ISupermercado {
 
 	public ProductoCantidad buscarProductoCantidadPorId(Integer idProducto) {
 		for (ProductoCantidad productoCantidad : inventario) {
-
 			if (productoCantidad.getProducto().getIdProducto().equals(idProducto)) {
 				return productoCantidad;
 			}
@@ -97,17 +94,17 @@ public class Supermercado implements ISupermercado {
 		return null;
 	}
 
-	public Cliente buscarClientePorDni(Integer dniCliente) throws Exception{
+	public Cliente buscarClientePorDni(Integer dniCliente) throws NullPointerException{
 		for (Cliente cliente : clientes) {
 			if (cliente.getDni().equals(dniCliente)) {
 				return cliente;
 			}
 		}
-		throw new Exception();
+		throw new NullPointerException();
 	}
 
 	@Override
-	public boolean eliminarProductoDelCarrito(Integer idProducto, Integer dniCliente) throws Exception {
+	public boolean eliminarProductoDelCarrito(Integer idProducto, Integer dniCliente) throws NullPointerException {
 		Cliente cliente = buscarClientePorDni(dniCliente);
 
 		if (cliente != null) {
@@ -132,7 +129,10 @@ public class Supermercado implements ISupermercado {
 	}
 
 	public Compra buscarCompraPorId(Integer idCompra) {
-		return compras.get(idCompra - 1);
+		if (idCompra <= 0 || idCompra > compras.size()) {
+			return null;
+		}
+		return compras.get(idCompra-1);
 	}
 
 	public void iniciarCompra(Cliente cliente) {
@@ -142,7 +142,7 @@ public class Supermercado implements ISupermercado {
 		compras.add(nuevaCompra);
 	}
 
-	public boolean realizarVenta(Integer dniCliente) throws Exception {
+	public boolean realizarVenta(Integer dniCliente) throws NullPointerException {
 	    Cliente cliente = buscarClientePorDni(dniCliente);
 	    if (cliente == null) {
 	        return false; 
