@@ -68,7 +68,7 @@ public class Supermercado implements ISupermercado {
 	}
 
 	@Override
-	public boolean agregarProductoAlCarrito(Integer idProducto, Integer dniCliente, Integer cantidadDelProducto) throws NullPointerException {
+	public boolean agregarProductoAlCarrito(Integer idProducto, Integer dniCliente, Integer cantidadDelProducto) throws NullPointerException, ProductoNoEncontradoException {
 		Cliente cliente = buscarClientePorDni(dniCliente);
 		ProductoCantidad producto = buscarProductoCantidadPorId(idProducto);
 
@@ -86,13 +86,13 @@ public class Supermercado implements ISupermercado {
 		}
 	}
 
-	public ProductoCantidad buscarProductoCantidadPorId(Integer idProducto) {
+	public ProductoCantidad buscarProductoCantidadPorId(Integer idProducto) throws ProductoNoEncontradoException {
 		for (ProductoCantidad productoCantidad : inventario) {
 			if (productoCantidad.getProducto().getIdProducto().equals(idProducto)) {
 				return productoCantidad;
 			}
 		}
-		return null;
+		throw new ProductoNoEncontradoException("ProductoNoEncontrado");
 	}
 
 	public Cliente buscarClientePorDni(Integer dniCliente) throws NullPointerException{
@@ -117,7 +117,7 @@ public class Supermercado implements ISupermercado {
 	}
 
 	@Override
-	public void actualizarPrecio(Double nuevoPrecio, int idProducto) {
+	public void actualizarPrecio(Double nuevoPrecio, int idProducto) throws ProductoNoEncontradoException {
 		ProductoCantidad productoCantidad = buscarProductoCantidadPorId(idProducto);
 		productoCantidad.getProducto().setPrecio(nuevoPrecio);
 	}
@@ -143,7 +143,7 @@ public class Supermercado implements ISupermercado {
 		compras.add(nuevaCompra);
 	}
 
-	public boolean realizarVenta(Integer dniCliente) throws NullPointerException {
+	public boolean realizarVenta(Integer dniCliente) throws NullPointerException, ProductoNoEncontradoException {
 	    Cliente cliente = buscarClientePorDni(dniCliente);
 	    if (cliente == null) {
 	        return false; 

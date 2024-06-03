@@ -11,6 +11,6 @@ public interface ISupermercado {
 	Boolean eliminarProductoPorId(Integer idProducto) throws ProductoNoEncontradoException;
 	boolean agregarProductoAlCarrito(Integer idProducto, Integer dniCliente, Integer cantidadDelProducto) throws Exception;
 	boolean eliminarProductoDelCarrito(Integer idProducto, Integer dniCliente) throws Exception;
-	void actualizarPrecio(Double nuevoPrecio, int idProducto);
+	void actualizarPrecio(Double nuevoPrecio, int idProducto) throws ProductoNoEncontradoException;
 	void seleccionarMetodoDePago(MetodoPago metodoPago, Integer idCompra);
 }
