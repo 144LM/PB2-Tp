@@ -33,18 +33,19 @@ public class Supermercado implements ISupermercado {
 	}
 
 	@Override
-	public Boolean eliminarClientePorDni(Integer dni) {
+	public Boolean eliminarClientePorDni(Integer dni) throws ClienteNoEncontradoException {
 		for (Cliente cliente : clientes) {
 			if (cliente.getDni().equals(dni)) {
 				clientes.remove(cliente);
 				return true;
 			}
 		}
-		return false;
+		throw new ClienteNoEncontradoException("Cliente no encontrado");
 
 	}
 
-	public Boolean agregarProductoAInventario(Producto producto, Integer cantidad) {
+	public Boolean agregarProductoAInventario(Producto producto, Integer cantidad) {//BUSCA SI EXISTE EL PRODUCTO EN EL INVENTARIO
+																					//SI EXISTE LE AGREGA MAS CANTIDAD SINO LO CREA Y LO AGREGA
 		for (ProductoCantidad productoCantidad : inventario) {
 			if (productoCantidad.getProducto().getIdProducto().equals(producto.getIdProducto())) {
 				productoCantidad.setCantidad(productoCantidad.getCantidad() + cantidad);
@@ -56,14 +57,14 @@ public class Supermercado implements ISupermercado {
 	}
 
 	@Override
-	public Boolean eliminarProductoPorId(Integer idProducto) {
+	public Boolean eliminarProductoPorId(Integer idProducto) throws ProductoNoEncontradoException {
 		for (ProductoCantidad productoCantidad : inventario) {
 			if (productoCantidad.getProducto().getIdProducto().equals(idProducto)) {
 				inventario.remove(productoCantidad);
 				return true;
 			}
 		}
-		return false;
+		throw new ProductoNoEncontradoException("Producto no encontrado");
 	}
 
 	@Override

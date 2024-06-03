@@ -32,7 +32,7 @@ public class SupermercadoTest {
     }
 
     @Test
-    public void queSePuedaEliminarCliente() {
+    public void queSePuedaEliminarCliente() throws ClienteNoEncontradoException {
         supermercado.eliminarClientePorDni(cliente.getDni());
         assertEquals(0, supermercado.getClientes().size());
     }
@@ -48,7 +48,7 @@ public class SupermercadoTest {
     }
 
     @Test
-    public void queSePuedaEliminarProductoDelInventario() {
+    public void queSePuedaEliminarProductoDelInventario() throws ProductoNoEncontradoException {
         Producto producto = new Producto(3421, "CocaCola", 920.0, categoriaBebidas);
         Integer cantidad = 5;
         supermercado.agregarProductoAInventario(producto, cantidad);
@@ -195,11 +195,11 @@ public class SupermercadoTest {
         assertFalse(supermercado.realizarVenta(clienteSinDinero.getDni()));
     }
     
-    @Test
-    public void queNoSePuedaEliminarClienteInexistente() {
+    @Test(expected = ClienteNoEncontradoException.class)
+    public void queNoSePuedaEliminarClienteInexistente() throws ClienteNoEncontradoException {
         Integer dniInexistente = 12345678;
-        boolean resultado = supermercado.eliminarClientePorDni(dniInexistente);
-        assertFalse(resultado);
+        supermercado.eliminarClientePorDni(dniInexistente);
+        
     }
     
     @Test
@@ -235,11 +235,11 @@ public class SupermercadoTest {
     }
     
     
-    @Test
-    public void queNoSePuedaEliminarProductoInexistente() {
+    @Test(expected = ProductoNoEncontradoException.class)
+    public void queNoSePuedaEliminarProductoInexistente() throws ProductoNoEncontradoException {
         Integer idProductoInexistente = 123456789;
-        boolean resultado = supermercado.eliminarProductoPorId(idProductoInexistente);
-        assertFalse(resultado);
+        supermercado.eliminarProductoPorId(idProductoInexistente);
+        
     }
     
     @Test
