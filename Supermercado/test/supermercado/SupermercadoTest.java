@@ -68,7 +68,7 @@ public class SupermercadoTest {
     }
 
     @Test
-    public void queSePuedaAgregarProductoAlCarrito() throws NullPointerException, ProductoNoEncontradoException {
+    public void queSePuedaAgregarProductoAlCarrito() throws ProductoNoEncontradoException, ClienteNoEncontradoException {
         Producto producto = new Producto(1, "Coca-cola", 0.50, categoriaBebidas);
         supermercado.agregarProductoAInventario(producto, 2);
         supermercado.agregarProductoAlCarrito(producto.getIdProducto(), cliente.getDni(), 2);
@@ -79,7 +79,7 @@ public class SupermercadoTest {
     }
 
     @Test
-    public void queSePuedaEliminarProductoDelCarrito() throws NullPointerException, ProductoNoEncontradoException {
+    public void queSePuedaEliminarProductoDelCarrito() throws ProductoNoEncontradoException, ClienteNoEncontradoException {
         Producto producto1 = new Producto(1, "Coca-cola", 20.50, categoriaBebidas);
         Producto producto2 = new Producto(2, "Pepsi", 30.50, categoriaBebidas);
         supermercado.agregarProductoAInventario(producto1, 2);
@@ -92,7 +92,7 @@ public class SupermercadoTest {
     }
 
     @Test
-    public void queSePuedaCalcularElTotalDelCarrito() throws NullPointerException, ProductoNoEncontradoException {
+    public void queSePuedaCalcularElTotalDelCarrito() throws ProductoNoEncontradoException, ClienteNoEncontradoException {
         Producto producto1 = new Producto(1, "Coca-cola", 20.50, categoriaBebidas);
         Producto producto2 = new Producto(2, "Pepsi", 30.50, categoriaBebidas);
         Producto producto3 = new Producto(3, "Quilmes", 100.50, categoriaBebidas);
@@ -117,7 +117,7 @@ public class SupermercadoTest {
     }
 
     @Test
-    public void queSePuedaRealizarVentaYActualizarInventario() throws NullPointerException, ProductoNoEncontradoException {
+    public void queSePuedaRealizarVentaYActualizarInventario() throws ProductoNoEncontradoException, ClienteNoEncontradoException {
         Producto producto1 = new Producto(1, "Coca-cola", 20.50, categoriaBebidas);
         Producto producto2 = new Producto(2, "Pepsi", 90.50, categoriaBebidas);
 
@@ -135,7 +135,7 @@ public class SupermercadoTest {
     }
 
     @Test
-    public void queSePuedaHacerUnaListaDeProductosPorCategoriaEnCarrito() throws NullPointerException, ProductoNoEncontradoException {
+    public void queSePuedaHacerUnaListaDeProductosPorCategoriaEnCarrito() throws ProductoNoEncontradoException, ClienteNoEncontradoException {
         Producto producto1 = new Producto(1, "Coca-cola", 20.50, categoriaBebidas);
         Producto producto2 = new Producto(2, "Pepsi", 30.50, categoriaBebidas);
         Producto producto3 = new Producto(3, "Quilmes", 100.50, categoriaBebidas);
@@ -181,7 +181,7 @@ public class SupermercadoTest {
     }
 
     @Test
-    public void queNoSePuedaRealizarLaVentaSiElClienteNoTieneDineroSuficiente() throws NullPointerException, ProductoNoEncontradoException {
+    public void queNoSePuedaRealizarLaVentaSiElClienteNoTieneDineroSuficiente() throws ProductoNoEncontradoException, ClienteNoEncontradoException {
         Producto producto1 = new Producto(1, "Coca-cola", 20.50, categoriaBebidas);
         Producto producto2 = new Producto(2, "Pepsi", 90.50, categoriaBebidas);
         Cliente clienteSinDinero = new Cliente("Pedro", 45678, 30.0);
@@ -203,7 +203,7 @@ public class SupermercadoTest {
     }
     
     @Test
-    public void queNoSePuedaRealizarVentaConCarritoVacio() throws NullPointerException, ProductoNoEncontradoException {
+    public void queNoSePuedaRealizarVentaConCarritoVacio() throws ProductoNoEncontradoException, ClienteNoEncontradoException {
         Cliente clienteNuevo = new Cliente("Pedro", 45678, 1000.0);
         supermercado.agregarCliente(clienteNuevo);
         supermercado.iniciarCompra(clienteNuevo);
@@ -242,12 +242,11 @@ public class SupermercadoTest {
         
     }
     
-    @Test
-    public void clienteNoEncontradoLanzaUnaExcepcion(){
+    @Test(expected = ClienteNoEncontradoException.class)
+    public void clienteNoEncontradoLanzaUnaExcepcion() throws ClienteNoEncontradoException{
         Cliente cliente = new Cliente("Pedro", 45678, 1000.0);
-        assertThrows(NullPointerException.class, () -> {
-            supermercado.buscarClientePorDni(cliente.getDni());
-        });
+        supermercado.buscarClientePorDni(cliente.getDni());
+        
     }
     
     

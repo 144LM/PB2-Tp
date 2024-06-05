@@ -68,7 +68,7 @@ public class Supermercado implements ISupermercado {
 	}
 
 	@Override
-	public boolean agregarProductoAlCarrito(Integer idProducto, Integer dniCliente, Integer cantidadDelProducto) throws NullPointerException, ProductoNoEncontradoException {
+	public boolean agregarProductoAlCarrito(Integer idProducto, Integer dniCliente, Integer cantidadDelProducto) throws ProductoNoEncontradoException, ClienteNoEncontradoException {
 		Cliente cliente = buscarClientePorDni(dniCliente);
 		ProductoCantidad producto = buscarProductoCantidadPorId(idProducto);
 
@@ -95,17 +95,17 @@ public class Supermercado implements ISupermercado {
 		throw new ProductoNoEncontradoException("ProductoNoEncontrado");
 	}
 
-	public Cliente buscarClientePorDni(Integer dniCliente) throws NullPointerException{
+	public Cliente buscarClientePorDni(Integer dniCliente) throws ClienteNoEncontradoException{
 		for (Cliente cliente : clientes) {
 			if (cliente.getDni().equals(dniCliente)) {
 				return cliente;
 			}
 		}
-		throw new NullPointerException();
+		throw new ClienteNoEncontradoException("Cliente no encontrado");
 	}
 
 	@Override
-	public boolean eliminarProductoDelCarrito(Integer idProducto, Integer dniCliente) throws NullPointerException {
+	public boolean eliminarProductoDelCarrito(Integer idProducto, Integer dniCliente) throws ClienteNoEncontradoException {
 		Cliente cliente = buscarClientePorDni(dniCliente);
 
 		if (cliente != null) {
@@ -143,32 +143,26 @@ public class Supermercado implements ISupermercado {
 		compras.add(nuevaCompra);
 	}
 
-	public boolean realizarVenta(Integer dniCliente) throws NullPointerException, ProductoNoEncontradoException {
+	public boolean realizarVenta(Integer dniCliente) throws ClienteNoEncontradoException, ProductoNoEncontradoException {
 	    Cliente cliente = buscarClientePorDni(dniCliente);
-	    if (cliente == null) {
-	        return false; 
-	    }
 	    Carrito carrito = cliente.getCarrito();
 	    List<ProductoCantidad> productosCarrito = carrito.getProductos();
 	    
-	    // verificar si el carrito está vacio
-	    if (productosCarrito.isEmpty()) {
-	        return false; // no se puede realizar la venta con un carrito vacio
+	    if (productosCarrito.isEmpty() || cliente.getSaldo() < carrito.getTotal()) {
+	        return false; 
 	    }
-	    
 	    
 	    for (ProductoCantidad productoCarrito : productosCarrito) {
-	        Producto producto = productoCarrito.getProducto();
-	        ProductoCantidad productoInventario = buscarProductoCantidadPorId(producto.getIdProducto());
+	        ProductoCantidad productoInventario = buscarProductoCantidadPorId(productoCarrito.getProducto().getIdProducto());
 	        
-	        if (productoInventario == null || productoInventario.getCantidad() < productoCarrito.getCantidad()
-	                || cliente.getSaldo() < carrito.getTotal()) {
-	            return false; // sin stock suficiente o sin dinero suficiente
+	        if (productoInventario.getCantidad() < productoCarrito.getCantidad()) {
+	            return false;
 	        }
+	        
 	        productoInventario.setCantidad(productoInventario.getCantidad() - productoCarrito.getCantidad());
 	    }
-	    Double restoDeSaldo = cliente.getSaldo() - carrito.getTotal();
-	    cliente.setSaldo(restoDeSaldo);
+	    
+	    cliente.setSaldo(cliente.getSaldo() - carrito.getTotal());
 	    vaciarCarrito(carrito);
 	    return true;
 	}
